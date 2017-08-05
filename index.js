@@ -45,6 +45,20 @@ app.post('/generator', function (req, res) {
 	res.send([programmingLanguage, projectName, result]);
 })
 
+/**
+* test server
+* Req: GET
+* params:              
+* return:
+**/
+app.get('/sentFile', function (req, res) {
+	console.log('GET - /sentFile')
+	
+	var programmingLanguage = req.body.programmingLanguage;
+	console.log(programmingLanguage)
+	res.send(programmingLanguage);
+})
+
 app.listen(3000, function () {
   console.log('App listening on port 3000!')
 })

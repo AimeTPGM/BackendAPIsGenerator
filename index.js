@@ -4,10 +4,10 @@ const fs = require('fs')
 const app = express()
 
 var template = {
-	"dependencies" : "const express = require('express') const bodyParser = require('body-parser') const app = express() app.use(bodyParser.json())",
-	"httpAction" : "app.<httpAction>('<param>', function (req, res) { console.log('<httpAction> – <param>')res.send('<httpAction> method!');})",
-	"comment" : "/** * Req: <httpAction> * params: * return: **/",
-	"httpListen" : "app.listen(<param>, function () {console.log('App listening on port <param>!')})"
+	"dependencies" : "const express = require('express') const bodyParser = require('body-parser') const app = express() app.use(bodyParser.json()) ",
+	"httpAction" : "app.<httpAction>('<param>', function (req, res) { console.log('<httpAction> – <param>') res.send('<httpAction> method!');}) ",
+	"comment" : "/** * Req: <httpAction> * params: * return: **/ ",
+	"httpListen" : "app.listen(<param>, function () {console.log('App listening on port <param>!')}) "
 }
 
 app.use(bodyParser.json())
@@ -44,7 +44,7 @@ app.post('/generator', function (req, res) {
 	}
 	var toWriteFile = result;
 	fs.writeFile('server.js', toWriteFile);
-	res.send(result);
+	res.send([programmingLanguage, projectName, ""+result]);
 })
 
 /**
@@ -55,7 +55,21 @@ app.post('/generator', function (req, res) {
 **/
 app.get('/sentFile', function (req, res) {
 	console.log('GET - /sentFile')
-	res.send(programmingLanguage);
+	var filePath =  "server.js";
+	fs.exists(filePath, function(exists){
+      if (exists) {     
+        // Content-type is very interesting part that guarantee that
+        // Web browser will handle response in an appropriate manner.
+        res.writeHead(200, {
+          "Content-Type": "application/octet-stream",
+          "Content-Disposition" : "attachment; filename=server.js"});
+        fs.createReadStream(filePath).pipe(res);
+      } else {
+        res.writeHead(400, {"Content-Type": "text/plain"});
+        res.end("ERROR File does NOT Exists");
+      }
+    });
+	// res.send(programmingLanguage);
 })
 
 app.listen(3000, function () {

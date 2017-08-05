@@ -1,12 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 const app = express()
 
 var template = {
-	"dependencies" : "const express = require('express')\nconst bodyParser = require('body-parser')\nconst app = express()\napp.use(bodyParser.json())\n",
-	"httpAction" : "app.<httpAction>('<param>', function (req, res) {\nres.send('<httpAction> method!');\n})\n",
-	"comment" : "/**\n* Req: <httpAction>\n* params:\n* return:\n**/\n",
-	"httpListen" : "app.listen(<param>, function () {\nconsole.log('App listening on port <param>!')"
+	"dependencies" : "const express = require('express') const bodyParser = require('body-parser') const app = express() app.use(bodyParser.json())",
+	"httpAction" : "app.<httpAction>('<param>', function (req, res) { console.log('<httpAction> – <param>')res.send('<httpAction> method!');})",
+	"comment" : "/** * Req: <httpAction> * params: * return: **/",
+	"httpListen" : "app.listen(<param>, function () {console.log('App listening on port <param>!')})"
 }
 
 app.use(bodyParser.json())
@@ -41,8 +42,9 @@ app.post('/generator', function (req, res) {
 			/<param>/g, req.body.keywords[key].param)
 		result += httpAction;
 	}
-
-	res.send([programmingLanguage, projectName, result]);
+	var toWriteFile = result;
+	fs.writeFile('server.js', toWriteFile);
+	res.send(result);
 })
 
 /**
@@ -53,9 +55,6 @@ app.post('/generator', function (req, res) {
 **/
 app.get('/sentFile', function (req, res) {
 	console.log('GET - /sentFile')
-	
-	var programmingLanguage = req.body.programmingLanguage;
-	console.log(programmingLanguage)
 	res.send(programmingLanguage);
 })
 

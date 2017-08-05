@@ -1,0 +1,23 @@
+{
+  "name": "staticjavis",
+  "version": "1.0.0",
+  "description": "backend for javis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AimeTPGM/StaticJavis.git"
+  },
+  "author": "AimeTPGM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AimeTPGM/StaticJavis/issues"
+  },
+  "homepage": "https://github.com/AimeTPGM/StaticJavis#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}

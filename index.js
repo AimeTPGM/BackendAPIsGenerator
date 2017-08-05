@@ -4,10 +4,23 @@ const fs = require('fs')
 const app = express()
 
 var template = {
-	"dependencies" : "const express = require('express') const bodyParser = require('body-parser') const app = express() app.use(bodyParser.json()) ",
-	"httpAction" : "app.<httpAction>('<param>', function (req, res) { console.log('<httpAction> – <param>') res.send('<httpAction> method!');}) ",
-	"comment" : "/** * Req: <httpAction> * params: * return: **/ ",
-	"httpListen" : "app.listen(<param>, function () {console.log('App listening on port <param>!')}) "
+	"dependencies" :  "const express = require('express')" + "\n" +
+									  "const bodyParser = require('body-parser')" + "\n" +
+										"const app = express()" + "\n" +
+										"app.use(bodyParser.json())" + "\n\n",
+	"httpAction" :  "app.<httpAction>('<param>', function (req, res) {" + "\n" +
+									"  console.log('<httpAction> – <param>')" + "\n" +
+									"  res.send('<httpAction> method!');" + "\n" +
+									"})" + "\n",
+	"comment" : "\n/**" + "\n" + 
+							"* Description: " + "\n" +
+							"* Req: <httpAction>" + "\n" +
+							"* Params:" + "\n" +
+							"* Return:" + "\n" +
+							"**/" + "\n",
+	"httpListen" :  "app.listen(<param>, function () {" + "\n" +
+									"  console.log('App listening on port <param>!')" + "\n" +
+									"})"
 }
 
 app.use(bodyParser.json())
@@ -23,6 +36,7 @@ app.post('/generator', function (req, res) {
 	var programmingLanguage = req.body.programmingLanguage;
 	var projectName = req.body.project;
 	var keywords = []
+
 
 	var result = template.dependencies;
 	for(var key in req.body.keywords){
@@ -43,7 +57,7 @@ app.post('/generator', function (req, res) {
 		result += httpAction;
 	}
 	var toWriteFile = result;
-	fs.writeFile('server.js', toWriteFile);
+	fs.writeFile('/home/fptrainnie/StaticJavis/server.js', toWriteFile);
 	res.send([programmingLanguage, projectName, ""+result]);
 })
 
@@ -55,7 +69,7 @@ app.post('/generator', function (req, res) {
 **/
 app.get('/sentFile', function (req, res) {
 	console.log('GET - /sentFile')
-	var filePath =  "server.js";
+	var filePath =  "/home/fptrainnie/StaticJavis/server.js";
 	fs.exists(filePath, function(exists){
       if (exists) {     
         // Content-type is very interesting part that guarantee that

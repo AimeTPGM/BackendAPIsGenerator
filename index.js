@@ -7,6 +7,7 @@ const generator = require("./generator")
 
 var nodeJSTemplate = templates.nodeJSTemplate
 var pythonFlaskTemplate = templates.pythonFlaskTemplate
+var javaSpringJAXRSTemplate = templates.javaSpringJAXRSTemplate
 
 app.use(function (req, res, next) {
 
@@ -49,6 +50,11 @@ app.post('/gen', function (req, res) {
 	else if(programmingLanguage == "PythonFlask"){
 		var result = generator.generate(keywords, pythonFlaskTemplate);
 		generator.writeAndSendFile(result, "py", res);
+	}
+
+	else if(programmingLanguage == "javaSpringJAXRS"){
+		var result = generator.generate(keywords, javaSpringJAXRSTemplate);
+		generator.writeAndSendFile(result, "java", res);
 	}
 	
 })

@@ -39,7 +39,39 @@ var pythonFlaskTemplate = {
 					"\t  app.run(host='0.0.0.0',port = <param>, debug=True)"
 }
 
+var javaSpringJAXRSTemplate = {
+	"dependencies" : 	"import javax.inject.Named;"+ "\n" +
+						"import javax.ws.rs.Consumes;"+ "\n" +
+						"import javax.ws.rs.GET;"+ "\n" +
+						"import javax.ws.rs.POST;"+ "\n" +
+						"import javax.ws.rs.Path;"+ "\n" +
+						"import javax.ws.rs.Produces;"+ "\n" +
+						"import javax.ws.rs.core.MediaType;"+ "\n" +
+						"import javax.ws.rs.core.Response;"+ "\n" +
+						"\n\n@Named"+ "\n" +
+						"@Path(\"/\")"+ "\n" +
+						"public class RestAPIs {",
+
+	"httpAction" : 		"\n\t@<httpAction>"+ "\n" +
+						"\t@Path(\"<param>\")"+ "\n" +
+						"\t@Produces(MediaType.APPLICATION_JSON)"+ "\n" +
+						"\tpublic Response <param>() {"+ "\n" +
+						"\t\treturn Response.status(200).build();"+ "\n" +
+						"\t}",
+
+	"comment" : 		"\n\t/**" + "\n" + 
+						"\t* Description: " + "\n" +
+						"\t* Req: <httpAction>" + "\n" +
+						"\t* Params:" + "\n" +
+						"\t* Return:" + "\n" +
+						"\t**/",
+
+	"httpListen" : 		"\n}"
+
+}
+
 module.exports = {
   nodeJSTemplate: nodeJSTemplate,
-  pythonFlaskTemplate: pythonFlaskTemplate
+  pythonFlaskTemplate: pythonFlaskTemplate,
+  javaSpringJAXRSTemplate: javaSpringJAXRSTemplate
 }

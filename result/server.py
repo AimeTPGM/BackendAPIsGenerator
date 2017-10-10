@@ -20,13 +20,5 @@ def /test()
 @app.route("/lol")
 def /lol()
 	return
-
-##########
-# Description: 
-# Req: listen
-# Params:
-# Return:
-##########
-
 if __name__ == "__main__":
 	  app.run(host='0.0.0.0',port = 3000, debug=True)

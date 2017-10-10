@@ -46,12 +46,15 @@ app.post('/gen', function (req, res) {
 
 			var action = "";
 
-			if(keywords[key].keyword == 'listen') action = nodeJSTemplate.httpListen;
-			else action = nodeJSTemplate.httpAction;
-			
-			action = nodeJSTemplate.comment.replace("<httpAction>", keywords[key].keyword) 
-					+ action.replace(/<httpAction>/g,keywords[key].keyword)
+			if(keywords[key].keyword == 'listen') 
+				action = nodeJSTemplate.httpListen.replace(/<httpAction>/g,keywords[key].keyword)
 							.replace(/<param>/g, keywords[key].param)
+			else 
+				action = nodeJSTemplate.comment.replace("<httpAction>", keywords[key].keyword) 
+						+ nodeJSTemplate.httpAction.replace(/<httpAction>/g,keywords[key].keyword)
+							.replace(/<param>/g, keywords[key].param)
+			
+			
 			result += action;
 		}
 		var toWriteFile = result;
@@ -79,12 +82,14 @@ app.post('/gen', function (req, res) {
 		for(var key in  keywords){
 			var action = "";
 
-			if(keywords[key].keyword == 'listen') action = pythonFlaskTemplate.httpListen;
-			else action = pythonFlaskTemplate.httpAction;
+			if(keywords[key].keyword == 'listen') 
+				action = pythonFlaskTemplate.httpListen.replace(/<httpAction>/g, keywords[key].keyword)
+							.replace(/<param>/g, keywords[key].param);
+			else 
+				action = pythonFlaskTemplate.comment.replace("<httpAction>", keywords[key].keyword)
+						+ pythonFlaskTemplate.httpAction.replace(/<httpAction>/g, keywords[key].keyword)
+							.replace(/<param>/g, keywords[key].param);
 
-			action = pythonFlaskTemplate.comment.replace("<httpAction>", keywords[key].keyword)
-					+ action.replace(/<httpAction>/g, keywords[key].keyword)
-							.replace(/<param>/g, keywords[key].param)
 			result += action;
 
 		}

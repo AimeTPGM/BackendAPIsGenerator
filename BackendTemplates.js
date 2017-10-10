@@ -3,7 +3,7 @@ var nodeJSTemplate = {
 									  "const bodyParser = require('body-parser')" + "\n" +
 										"const app = express()" + "\n" +
 										"app.use(bodyParser.json())" + "\n\n",
-	"httpAction" :  "app.<httpAction>('<param>', function (req, res) {" + "\n" +
+	"httpAction" :  "\napp.<httpAction>('<param>', function (req, res) {" + "\n" +
 									"  console.log('<httpAction> – <param>')" + "\n" +
 									"  res.send('<httpAction> method!');" + "\n" +
 									"})" + "\n",
@@ -12,8 +12,8 @@ var nodeJSTemplate = {
 							"* Req: <httpAction>" + "\n" +
 							"* Params:" + "\n" +
 							"* Return:" + "\n" +
-							"**/" + "\n",
-	"httpListen" :  "app.listen(<param>, function () {" + "\n" +
+							"**/",
+	"httpListen" :  "\n\napp.listen(<param>, function () {" + "\n" +
 									"  console.log('App listening on port <param>!')" + "\n" +
 									"})"
 }
@@ -33,7 +33,7 @@ var pythonFlaskTemplate = {
 				"# Return:" + "\n" +
 				"##########" + "\n",
 
-	"httpListen" :  "\nif __name__ == \"__main__\":" + "\n" +
+	"httpListen" :  "\n\nif __name__ == \"__main__\":" + "\n" +
 					"\t  app.run(host='0.0.0.0',port = <param>, debug=True)"
 }
 

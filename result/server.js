@@ -26,12 +26,7 @@ app.post('/lol', function (req, res) {
   res.send('post method!');
 })
 
-/**
-* Description: 
-* Req: listen
-* Params:
-* Return:
-**/
+
 app.listen(3000, function () {
   console.log('App listening on port 3000!')
 })

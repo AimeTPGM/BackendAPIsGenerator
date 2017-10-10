@@ -44,17 +44,17 @@ app.post('/gen', function (req, res) {
 
 	if (programmingLanguage == "NodeJSExpressJS"){
 		var result = generator.generate(keywords, nodeJSTemplate);
-		generator.writeAndSendFile(result, "py", res);
+		generator.writeAndSendFile(result, "server.js", res);
 	}
 
 	else if(programmingLanguage == "PythonFlask"){
 		var result = generator.generate(keywords, pythonFlaskTemplate);
-		generator.writeAndSendFile(result, "py", res);
+		generator.writeAndSendFile(result, "server.py", res);
 	}
 
 	else if(programmingLanguage == "javaSpringJAXRS"){
 		var result = generator.generate(keywords, javaSpringJAXRSTemplate);
-		generator.writeAndSendFile(result, "java", res);
+		generator.writeAndSendFile(result, "RestAPIs.java", res);
 	}
 	
 })

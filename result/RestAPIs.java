@@ -7,16 +7,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 @Named
 @Path("/")
 public class RestAPIs {
 	/**
 	* Description: 
-	* Req: get
+	* Req: GET
 	* Params:
 	* Return:
-	**/	@get
+	**/
+	@GET
 	@Path("test")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response test() {
@@ -24,10 +24,11 @@ public class RestAPIs {
 	}
 	/**
 	* Description: 
-	* Req: post
+	* Req: POST
 	* Params:
 	* Return:
-	**/	@post
+	**/
+	@POST
 	@Path("lol")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response lol() {

@@ -48,7 +48,7 @@ var javaSpringJAXRSTemplate = {
 						"import javax.ws.rs.Produces;"+ "\n" +
 						"import javax.ws.rs.core.MediaType;"+ "\n" +
 						"import javax.ws.rs.core.Response;"+ "\n" +
-						"\n\n@Named"+ "\n" +
+						"\n@Named"+ "\n" +
 						"@Path(\"/\")"+ "\n" +
 						"public class RestAPIs {",
 

@@ -18,20 +18,20 @@ module.exports = {
 		return result;
 	},
 
-	writeAndSendFile: function(result, fileType, res){
+	writeAndSendFile: function(result, fileName, res){
 		var toWriteFile = result;
-		fs.writeFile('result/server.'+fileType, toWriteFile);
+		fs.writeFile('result/'+fileName, toWriteFile);
 
-		var filePath =  "result/server."+fileType;
+		var filePath =  'result/'+fileName;
 		fs.exists(filePath, function(exists){
 	      if (exists) {     
 	        res.writeHead(200, {
-	          "Content-Type": "application/octet-stream",
-	          "Content-Disposition" : "attachment; filename=server."+fileType});
+	          'Content-Type': 'application/octet-stream',
+	          'Content-Disposition' : 'attachment; filename=server.'+fileName});
 	        fs.createReadStream(filePath).pipe(res);
 	      } else {
-	        res.writeHead(400, {"Content-Type": "text/plain"});
-	        res.end("ERROR File does NOT Exists");
+	        res.writeHead(400, {'Content-Type': 'text/plain'});
+	        res.end('ERROR File does NOT Exists');
 	      }
 	    });
 

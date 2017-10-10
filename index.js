@@ -4,7 +4,8 @@ const fs = require('fs')
 const app = express()
 var templates = require("./BackendTemplates")
 
-var nodeJSTemplates = templates.nodeJSTemplate
+var nodeJSTemplate = templates.nodeJSTemplate
+var pythonFlaskTemplate = templates.pythonFlaskTemplate
 
 app.use(function (req, res, next) {
 
@@ -39,29 +40,24 @@ app.post('/gen', function (req, res) {
 	var projectName = req.body.project;
 	var keywords = req.body.keywords
 
-	if (programmingLanguage == "NodeJS+ExpressJS"){
-		var result = nodeJSTemplates.dependencies;
+	if (programmingLanguage == "NodeJSExpressJS"){
+		var result = nodeJSTemplate.dependencies;
 		for(var key in keywords){
 
-			var httpAction = "";
+			var action = "";
 
-			if(keywords[key].keyword == 'listen'){
-				httpAction = nodeJSTemplates.httpListen;
-			}
-			else{
-				httpAction = nodeJSTemplates.httpAction;
-			}
-
-			httpAction = nodeJSTemplates.comment.replace("<httpAction>", keywords[key].keyword) 
-				+ httpAction.replace(
-				/<httpAction>/g,keywords[key].keyword).replace(
-				/<param>/g, keywords[key].param)
-			result += httpAction;
+			if(keywords[key].keyword == 'listen') action = nodeJSTemplate.httpListen;
+			else action = nodeJSTemplate.httpAction;
+			
+			action = nodeJSTemplate.comment.replace("<httpAction>", keywords[key].keyword) 
+					+ action.replace(/<httpAction>/g,keywords[key].keyword)
+							.replace(/<param>/g, keywords[key].param)
+			result += action;
 		}
 		var toWriteFile = result;
-		fs.writeFile('server.js', toWriteFile);
+		fs.writeFile('result/server.js', toWriteFile);
 
-		var filePath =  "server.js";
+		var filePath =  "result/server.js";
 		fs.exists(filePath, function(exists){
 	      if (exists) {     
 	        // Content-type is very interesting part that guarantee that
@@ -75,6 +71,42 @@ app.post('/gen', function (req, res) {
 	        res.end("ERROR File does NOT Exists");
 	      }
 	    });
+
+	}
+
+	else if(programmingLanguage == "PythonFlask"){
+		var result = pythonFlaskTemplate.dependencies;
+		for(var key in  keywords){
+			var action = "";
+
+			if(keywords[key].keyword == 'listen') action = pythonFlaskTemplate.httpListen;
+			else action = pythonFlaskTemplate.httpAction;
+
+			action = pythonFlaskTemplate.comment.replace("<httpAction>", keywords[key].keyword)
+					+ action.replace(/<httpAction>/g, keywords[key].keyword)
+							.replace(/<param>/g, keywords[key].param)
+			result += action;
+
+		}
+
+		var toWriteFile = result;
+		fs.writeFile('result/server.py', toWriteFile);
+
+		var filePath =  "result/server.py";
+		fs.exists(filePath, function(exists){
+	      if (exists) {     
+	        // Content-type is very interesting part that guarantee that
+	        // Web browser will handle response in an appropriate manner.
+	        res.writeHead(200, {
+	          "Content-Type": "application/octet-stream",
+	          "Content-Disposition" : "attachment; filename=server.py"});
+	        fs.createReadStream(filePath).pipe(res);
+	      } else {
+	        res.writeHead(400, {"Content-Type": "text/plain"});
+	        res.end("ERROR File does NOT Exists");
+	      }
+	    });
+
 
 	}
 	

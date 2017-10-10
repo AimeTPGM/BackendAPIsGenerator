@@ -18,6 +18,26 @@ var nodeJSTemplate = {
 									"})"
 }
 
+var pythonFlaskTemplate = {
+	"dependencies" :    "from flask import Flask"+ "\n" +
+						"app = Flask(__name__)",
+
+	"httpAction" :  "@app.route(\"<param>\")"+ "\n" +
+					"def <param>()"+ "\n" +
+					"\treturn",
+
+	"comment" : "\n\n##########" + "\n" + 
+				"# Description: " + "\n" +
+				"# Req: <httpAction>" + "\n" +
+				"# Params:" + "\n" +
+				"# Return:" + "\n" +
+				"##########" + "\n",
+
+	"httpListen" :  "\nif __name__ == \"__main__\":" + "\n" +
+					"\t  app.run(host='0.0.0.0',port = <param>, debug=True)"
+}
+
 module.exports = {
-  nodeJSTemplate: nodeJSTemplate
+  nodeJSTemplate: nodeJSTemplate,
+  pythonFlaskTemplate: pythonFlaskTemplate
 }

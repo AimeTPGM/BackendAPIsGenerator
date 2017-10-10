@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 module.exports = {
 	generate: function(keywords, template) {
 		var result = template.dependencies;
@@ -14,6 +16,25 @@ module.exports = {
 			result += action;
 		}
 		return result;
+	},
+
+	writeAndSendFile: function(result, fileType, res){
+		var toWriteFile = result;
+		fs.writeFile('result/server.'+fileType, toWriteFile);
+
+		var filePath =  "result/server."+fileType;
+		fs.exists(filePath, function(exists){
+	      if (exists) {     
+	        res.writeHead(200, {
+	          "Content-Type": "application/octet-stream",
+	          "Content-Disposition" : "attachment; filename=server."+fileType});
+	        fs.createReadStream(filePath).pipe(res);
+	      } else {
+	        res.writeHead(400, {"Content-Type": "text/plain"});
+	        res.end("ERROR File does NOT Exists");
+	      }
+	    });
+
 	}
 	
 

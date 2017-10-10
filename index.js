@@ -43,49 +43,12 @@ app.post('/gen', function (req, res) {
 
 	if (programmingLanguage == "NodeJSExpressJS"){
 		var result = generator.generate(keywords, nodeJSTemplate);
-
-		var toWriteFile = result;
-		fs.writeFile('result/server.js', toWriteFile);
-
-		var filePath =  "result/server.js";
-		fs.exists(filePath, function(exists){
-	      if (exists) {     
-	        // Content-type is very interesting part that guarantee that
-	        // Web browser will handle response in an appropriate manner.
-	        res.writeHead(200, {
-	          "Content-Type": "application/octet-stream",
-	          "Content-Disposition" : "attachment; filename=server.js"});
-	        fs.createReadStream(filePath).pipe(res);
-	      } else {
-	        res.writeHead(400, {"Content-Type": "text/plain"});
-	        res.end("ERROR File does NOT Exists");
-	      }
-	    });
-
+		generator.writeAndSendFile(result, "py", res);
 	}
 
 	else if(programmingLanguage == "PythonFlask"){
 		var result = generator.generate(keywords, pythonFlaskTemplate);
-		
-		var toWriteFile = result;
-		fs.writeFile('result/server.py', toWriteFile);
-
-		var filePath =  "result/server.py";
-		fs.exists(filePath, function(exists){
-	      if (exists) {     
-	        // Content-type is very interesting part that guarantee that
-	        // Web browser will handle response in an appropriate manner.
-	        res.writeHead(200, {
-	          "Content-Type": "application/octet-stream",
-	          "Content-Disposition" : "attachment; filename=server.py"});
-	        fs.createReadStream(filePath).pipe(res);
-	      } else {
-	        res.writeHead(400, {"Content-Type": "text/plain"});
-	        res.end("ERROR File does NOT Exists");
-	      }
-	    });
-
-
+		generator.writeAndSendFile(result, "py", res);
 	}
 	
 })

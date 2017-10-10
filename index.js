@@ -2,7 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const app = express()
-var templates = require("./BackendTemplates")
+const templates = require("./BackendTemplates")
+const generator = require("./generator")
 
 var nodeJSTemplate = templates.nodeJSTemplate
 var pythonFlaskTemplate = templates.pythonFlaskTemplate
@@ -41,22 +42,8 @@ app.post('/gen', function (req, res) {
 	var keywords = req.body.keywords
 
 	if (programmingLanguage == "NodeJSExpressJS"){
-		var result = nodeJSTemplate.dependencies;
-		for(var key in keywords){
+		var result = generator.generate(keywords, nodeJSTemplate);
 
-			var action = "";
-
-			if(keywords[key].keyword == 'listen') 
-				action = nodeJSTemplate.httpListen.replace(/<httpAction>/g,keywords[key].keyword)
-							.replace(/<param>/g, keywords[key].param)
-			else 
-				action = nodeJSTemplate.comment.replace("<httpAction>", keywords[key].keyword) 
-						+ nodeJSTemplate.httpAction.replace(/<httpAction>/g,keywords[key].keyword)
-							.replace(/<param>/g, keywords[key].param)
-			
-			
-			result += action;
-		}
 		var toWriteFile = result;
 		fs.writeFile('result/server.js', toWriteFile);
 
@@ -78,22 +65,8 @@ app.post('/gen', function (req, res) {
 	}
 
 	else if(programmingLanguage == "PythonFlask"){
-		var result = pythonFlaskTemplate.dependencies;
-		for(var key in  keywords){
-			var action = "";
-
-			if(keywords[key].keyword == 'listen') 
-				action = pythonFlaskTemplate.httpListen.replace(/<httpAction>/g, keywords[key].keyword)
-							.replace(/<param>/g, keywords[key].param);
-			else 
-				action = pythonFlaskTemplate.comment.replace("<httpAction>", keywords[key].keyword)
-						+ pythonFlaskTemplate.httpAction.replace(/<httpAction>/g, keywords[key].keyword)
-							.replace(/<param>/g, keywords[key].param);
-
-			result += action;
-
-		}
-
+		var result = generator.generate(keywords, pythonFlaskTemplate);
+		
 		var toWriteFile = result;
 		fs.writeFile('result/server.py', toWriteFile);
 

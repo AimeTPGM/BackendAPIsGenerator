@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Return:
 ##########
 @app.route("/test")
-def /test()
+def test()
 	return
 
 ##########
@@ -18,7 +18,7 @@ def /test()
 # Return:
 ##########
 @app.route("/lol")
-def /lol()
+def lol()
 	return
 
 if __name__ == "__main__":

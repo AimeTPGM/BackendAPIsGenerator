@@ -1,28 +1,30 @@
 var nodeJSTemplate = {
 	"dependencies" :  "const express = require('express')" + "\n" +
-									  "const bodyParser = require('body-parser')" + "\n" +
-										"const app = express()" + "\n" +
-										"app.use(bodyParser.json())" + "\n\n",
-	"httpAction" :  "\napp.<httpAction>('<param>', function (req, res) {" + "\n" +
+									"const bodyParser = require('body-parser')" + "\n" +
+									"const app = express()" + "\n" +
+									"app.use(bodyParser.json())" + "\n\n",
+
+	"httpAction" :  "\napp.<httpAction>('/<param>', function (req, res) {" + "\n" +
 									"  console.log('<httpAction> – <param>')" + "\n" +
 									"  res.send('<httpAction> method!');" + "\n" +
 									"})" + "\n",
 	"comment" : "\n/**" + "\n" + 
-							"* Description: " + "\n" +
-							"* Req: <httpAction>" + "\n" +
-							"* Params:" + "\n" +
-							"* Return:" + "\n" +
-							"**/",
+				"* Description: " + "\n" +
+				"* Req: <httpAction>" + "\n" +
+				"* Params:" + "\n" +
+				"* Return:" + "\n" +
+				"**/",
+
 	"httpListen" :  "\n\napp.listen(<param>, function () {" + "\n" +
-									"  console.log('App listening on port <param>!')" + "\n" +
-									"})"
+					"  console.log('App listening on port <param>!')" + "\n" +
+					"})"
 }
 
 var pythonFlaskTemplate = {
 	"dependencies" :    "from flask import Flask"+ "\n" +
 						"app = Flask(__name__)",
 
-	"httpAction" :  "@app.route(\"<param>\")"+ "\n" +
+	"httpAction" :  "@app.route(\"/<param>\")"+ "\n" +
 					"def <param>()"+ "\n" +
 					"\treturn",
 

@@ -39,7 +39,7 @@ app.use(bodyParser.json())
 app.post('/gen', function (req, res) {
 	console.log('POST - /gen')
 	var programmingLanguage = req.body.programmingLanguage;
-	var projectName = req.body.project;
+	// var projectName = req.body.projectName;
 	var keywords = req.body.keywords
 
 	if (programmingLanguage == "NodeJSExpressJS"){
@@ -52,7 +52,7 @@ app.post('/gen', function (req, res) {
 		generator.writeAndSendFile(result, "server.py", res);
 	}
 
-	else if(programmingLanguage == "javaSpringJAXRS"){
+	else if(programmingLanguage == "JavaSpringJAXRS"){
 		var result = generator.generate(keywords, javaSpringJAXRSTemplate);
 		generator.writeAndSendFile(result, "RestAPIs.java", res);
 	}
@@ -61,6 +61,6 @@ app.post('/gen', function (req, res) {
 
 
 
-app.listen(3001, function () {
-  console.log('App listening on port 3001!')
+app.listen(3000, function () {
+  console.log('App listening on port 3000!')
 })

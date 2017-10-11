@@ -6,7 +6,7 @@ Please check [README](README.md) first to understand how this project works.
 
 If you have any question, feel free to ask.
 
-# AS-IS
+## AS-IS
 
 This generator is able to generate 3 templates of different backend APIs, those are
 
@@ -14,7 +14,7 @@ This generator is able to generate 3 templates of different backend APIs, those 
 - Python Flask
 - Java Spring JAX-RS
 
-# TO-BE
+## TO-BE
 
 We could add more backend technologies to generate a simple backend templates of that programming language and framework you selected.
 
@@ -50,8 +50,8 @@ var programmingLanguageFrameworkTemplate = templates.programmingLanguageFramewor
 
 where ```programmingLanguageFrameworkTemplate``` is the template you created on step 1
 
-and ```output.fileType``` is the output file that will be written and sent in response
+and ```output.fileType``` is the output file that will be written at ```result/output.fileType``` and sent in response
 
-then send me your PR. I'll review and merge it ASAP!
+3. send me your PR. I'll review and merge it ASAP!
 
 # Enjoy Hacking!

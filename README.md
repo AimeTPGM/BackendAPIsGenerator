@@ -70,24 +70,17 @@ After the generating, files in result can be use as a part in a particular proje
 if you would like to make a NodeJS ExpressJS server from the generated file
 
 ```
-
 $mkdir MyServer
-
 $cp ~/path/to/BackendAPIsGenerator ~/path/to/MyServer
-
 $cd ~/path/to/MyServer
-
 $npm init
-
 ```
 
 then it will lead you to build package.json file. After that use the following commands:
 
 ```
 $npm install nodejs --save
-
 $npm install express --save
-
 $npm install body-parser --save
 
 ```
@@ -95,9 +88,7 @@ $npm install body-parser --save
 then you can run the server by using:
 
 ```
-
-node server.js
-
+$node server.js
 ```
 
 it will display ``` App listening on port 3000! ``` then you can go through server.js file for editing the backend server as you want!
